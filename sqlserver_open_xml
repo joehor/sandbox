@@ -1,13 +1,13 @@
-declare @drop table ( Cliente int, OrdemCompra varchar(50) )
-declare @dataxml xml
+DECLARE @drop TABLE ( Cliente INT, OrdemCompra VARCHAR(50) )
+DECLARE @dataxml XML
 
-insert into @drop 
-select 2154, 46
-union select 52124, 47
-union select 12544, 48
+INSERT INTO @drop 
+SELECT 2154, 46
+UNION SELECT 52124, 47
+UNION SELECT 12544, 48
 
-select @dataxml = ( select * from @drop FOR XML PATH('Data') )
+SELECT @dataxml = ( SELECT * FROM @drop FOR XML PATH('Data') )
 
 -- result
-select @dataxml as dataxml
-select Cliente = Nodes.value('(Cliente)[1]', 'int'), OrdemCompra = Nodes.value('(OrdemCompra)[1]', 'varchar(50)') from @dataxml.nodes('/Data') as XTbl(Nodes)
+SELECT @dataxml as dataxml
+SELECT Cliente = Nodes.Value('(Cliente)[1]', 'int'), OrdemCompra = Nodes.Value('(OrdemCompra)[1]', 'VARCHAR(50)') FROM @dataxml.nodes('/Data') as XTbl(Nodes)
